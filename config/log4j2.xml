@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Properties>
+		<Property name="LOG_DIR">./log</Property>
+		<Property name="ARCHIVE">./archive-log</Property>
+		<Property name="PATTERN">[%d][%-5p][%t][Class:%C,Method:%M,Line:%L] %m%n</Property>
+		<Property name="DETAIL_PATTERN">current date-%d LEVEL-%-5p Thread-[%t] Method-%M() Class name-%C Message-%m%n</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<PatternLayout pattern="${PATTERN}" />
+		</Console>
+		
+		<RollingFile name="TO_FILE" fileName="${LOG_DIR}/testing.log" filePattern="${ARCHIVE}/testing.log.%d{yyyy-MM-dd_hh-mm}.zip">
+			<PatternLayout pattern="${PATTERN}" />
+			<TimeBasedTriggeringPolicy/>
+		</RollingFile>
+	</Appenders>
+
+	<loggers>
+		<Logger name="com.exfantasy.test" level="ALL" additivity="false">
+			<AppenderRef ref="CONSOLE" />
+			<AppenderRef ref="TO_FILE" />
+		</Logger>
+		<root level="all" additivity="false">
+			<AppenderRef ref="CONSOLE" />
+		</root>
+	</loggers>
+</Configuration>
